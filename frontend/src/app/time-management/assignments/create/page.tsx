@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ShiftAssignmentForm from "../../components/forms/ShiftAssignmentForm";
 import { createShiftAssignment } from "../../api/shiftAssignments";
 
-export default function CreateAssignmentPage() {
+function CreateAssignmentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -45,5 +46,13 @@ export default function CreateAssignmentPage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function CreateAssignmentPage() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <CreateAssignmentContent />
+    </Suspense>
   );
 }

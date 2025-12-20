@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createExitInterview, getAllOffboardingRequests } from '../../services';
 
-export default function CreateExitInterviewPage() {
+function CreateExitInterviewContent() {
     const searchParams = useSearchParams();
 
     const [formData, setFormData] = useState({
@@ -335,5 +335,13 @@ export default function CreateExitInterviewPage() {
                 </div>
             </form>
         </div>
+    );
+}
+
+export default function CreateExitInterviewPage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+            <CreateExitInterviewContent />
+        </Suspense>
     );
 }

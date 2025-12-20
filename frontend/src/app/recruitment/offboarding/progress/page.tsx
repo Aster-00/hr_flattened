@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getAllOffboardingRequests, getOffboardingProgress } from '../services';
 
-export default function OffboardingProgressPage() {
+function OffboardingProgressContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -168,5 +168,13 @@ export default function OffboardingProgressPage() {
                 </div>
             ) : null}
         </div>
+    );
+}
+
+export default function OffboardingProgressPage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+            <OffboardingProgressContent />
+        </Suspense>
     );
 }

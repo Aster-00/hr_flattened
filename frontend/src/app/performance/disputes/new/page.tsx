@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '../../../../lib/api';
 
-export default function NewDisputePage() {
+function NewDisputeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const recordId = searchParams.get('recordId');
@@ -120,3 +120,16 @@ export default function NewDisputePage() {
   );
 }
 
+export default function NewDisputePage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '2rem 1.5rem', textAlign: 'center' }}>
+          Loading...
+        </div>
+      }
+    >
+      <NewDisputeContent />
+    </Suspense>
+  );
+}

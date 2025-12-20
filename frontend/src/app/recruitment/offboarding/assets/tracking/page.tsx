@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getAssetsByOffboarding, createAssetReturn, markAssetAsReturned, deleteAssetReturn, getAllOffboardingRequests, updateAssetReturn } from '../../services';
 
-export default function AssetsTrackingPage() {
+function AssetsTrackingContent() {
     const searchParams = useSearchParams();
 
     // State for selection
@@ -305,5 +305,13 @@ export default function AssetsTrackingPage() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function AssetsTrackingPage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+            <AssetsTrackingContent />
+        </Suspense>
     );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '@/lib/api';
@@ -24,7 +24,7 @@ interface Assignment {
   createdAt: string;
 }
 
-export default function AssignmentsPage() {
+function AssignmentsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const cycleId = searchParams.get('cycle');
@@ -237,3 +237,16 @@ export default function AssignmentsPage() {
   );
 }
 
+export default function AssignmentsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '2rem 1.5rem' }}>
+          <div style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Loading...</div>
+        </div>
+      }
+    >
+      <AssignmentsContent />
+    </Suspense>
+  );
+}

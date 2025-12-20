@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '../../../../lib/api';
 
@@ -20,7 +20,7 @@ interface Employee {
   lastName: string;
 }
 
-export default function NewAssignmentPage() {
+function NewAssignmentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const cycleIdFromQuery = searchParams.get('cycle');
@@ -234,3 +234,16 @@ export default function NewAssignmentPage() {
   );
 }
 
+export default function NewAssignmentPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '2rem 1.5rem', textAlign: 'center' }}>
+          Loading...
+        </div>
+      }
+    >
+      <NewAssignmentContent />
+    </Suspense>
+  );
+}

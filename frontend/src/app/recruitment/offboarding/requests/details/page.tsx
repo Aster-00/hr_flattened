@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getAllOffboardingRequests, getOffboardingRequest, getOffboardingProgress } from '../../services';
 
-export default function RequestDetailsPage() {
+function RequestDetailsContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const id = searchParams?.get('id') || '';
@@ -199,5 +199,13 @@ export default function RequestDetailsPage() {
                 </div>
             ) : null}
         </div>
+    );
+}
+
+export default function RequestDetailsPage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+            <RequestDetailsContent />
+        </Suspense>
     );
 }

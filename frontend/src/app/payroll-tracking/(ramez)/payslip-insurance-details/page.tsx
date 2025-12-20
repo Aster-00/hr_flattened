@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Shield,
@@ -151,7 +151,7 @@ const InsuranceRow = ({
 );
 
 // --- 3. MAIN COMPONENT ---
-export default function PayslipInsuranceDetailsPage() {
+function PayslipInsuranceDetailsContent() {
   const [data, setData] = useState<InsuranceDeductionsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -370,5 +370,25 @@ export default function PayslipInsuranceDetailsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PayslipInsuranceDetailsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div
+          className="min-h-screen flex items-center justify-center"
+          style={{ backgroundColor: "#F9FAFB" }}
+        >
+          <Loader2 className="w-10 h-10 mr-3 text-indigo-600 animate-spin" />
+          <p className="text-xl text-indigo-600 font-semibold">
+            Retrieving insurance details...
+          </p>
+        </div>
+      }
+    >
+      <PayslipInsuranceDetailsContent />
+    </Suspense>
   );
 }

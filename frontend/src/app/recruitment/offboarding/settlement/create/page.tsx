@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createFinalSettlement, getAllOffboardingRequests } from '../../services';
 
-export default function CreateSettlementPage() {
+function CreateSettlementContent() {
     const searchParams = useSearchParams();
 
     // State for IDs (initialized from URL or empty)
@@ -306,5 +306,13 @@ export default function CreateSettlementPage() {
                 </ul>
             </div>
         </div>
+    );
+}
+
+export default function CreateSettlementPage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+            <CreateSettlementContent />
+        </Suspense>
     );
 }

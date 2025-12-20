@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -13,7 +13,7 @@ import {
     completeOffboardingStage,
 } from '../../services';
 
-export default function ClearanceUpdatePage() {
+function ClearanceUpdateContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -477,5 +477,13 @@ export default function ClearanceUpdatePage() {
                 </>
             ) : null}
         </div>
+    );
+}
+
+export default function ClearanceUpdatePage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+            <ClearanceUpdateContent />
+        </Suspense>
     );
 }

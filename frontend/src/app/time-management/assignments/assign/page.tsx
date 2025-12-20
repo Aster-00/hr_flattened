@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ShiftAssignmentForm from "../../components/forms/ShiftAssignmentForm";
 import {
@@ -16,7 +16,7 @@ type FormData = {
   scheduleRuleId?: string;
 };
 
-export default function AssignPage() {
+function AssignPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -97,5 +97,13 @@ export default function AssignPage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function AssignPage() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <AssignPageContent />
+    </Suspense>
   );
 }
