@@ -49,7 +49,8 @@ export function HrRejectModal({
         id: requestId,
         input: {
           approverId: user.id,
-          comment: comment,
+          reason: comment,
+          comments: comment,
         },
       },
       {
