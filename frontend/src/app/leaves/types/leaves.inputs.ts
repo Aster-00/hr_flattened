@@ -42,6 +42,7 @@ export interface ManagerApprovalInput {
  * Manager Rejection Input
  */
 export interface ManagerRejectionInput {
+  approverId: string;
   reason: string;
   comments?: string;
 }
