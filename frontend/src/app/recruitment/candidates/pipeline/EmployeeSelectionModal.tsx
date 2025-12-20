@@ -45,7 +45,7 @@ export default function EmployeeSelectionModal({
 
   const filteredEmployees = employees.filter((emp) => {
     const searchLower = searchTerm.toLowerCase();
-    const fullName = `${emp.firstName} ${emp.lastName}`.toLowerCase();
+    const fullName = `${emp.personalInfo?.firstName || ''} ${emp.personalInfo?.lastName || ''}`.toLowerCase();
     const employeeNumber = emp.employeeNumber?.toLowerCase() || '';
     return fullName.includes(searchLower) || employeeNumber.includes(searchLower);
   });
@@ -55,7 +55,7 @@ export default function EmployeeSelectionModal({
 
     const selectedEmployee = employees.find(emp => emp._id === selectedEmployeeId);
     if (selectedEmployee) {
-      const employeeName = `${selectedEmployee.firstName} ${selectedEmployee.lastName}`;
+      const employeeName = `${selectedEmployee.personalInfo?.firstName || ''} ${selectedEmployee.personalInfo?.lastName || ''}`;
       onSelect(selectedEmployeeId, employeeName);
       handleClose();
     }
@@ -190,7 +190,7 @@ export default function EmployeeSelectionModal({
                   }}
                 >
                   <div style={{ fontWeight: '600', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-                    {emp.firstName} {emp.lastName}
+                    {emp.personalInfo?.firstName || ''} {emp.personalInfo?.lastName || ''}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                     {emp.employeeNumber}

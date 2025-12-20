@@ -529,7 +529,8 @@ export const recruitmentApi = {
       if (response.emailNotification) {
         const success = await emailService.sendRejectionEmail(
           response.emailNotification.email,
-          response.emailNotification.name
+          response.emailNotification.name,
+          position
         );
         return {
           success,

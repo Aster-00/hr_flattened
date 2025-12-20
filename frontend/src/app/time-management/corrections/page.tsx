@@ -37,7 +37,8 @@ export default function CorrectionsPage() {
 
     const columns: Column<CorrectionRow>[] = [
         { key: "employeeId", label: "Employee ID" },
-        { key: "attendanceRecord", label: "Attendance Record" },
+        { key: "date", label: "Date" },
+        { key: "reason", label: "Reason" },
         { key: "statusBadge", label: "Status" },
         { key: "actions", label: "Actions" },
     ];

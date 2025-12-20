@@ -12,12 +12,35 @@ import {
   XCircle,
 } from "lucide-react";
 
+interface PaymentStatusBreakdown {
+  paid?: number;
+  pending?: number;
+  failed?: number;
+}
+
+interface Summary {
+  totalPayslips: number;
+  totalGrossSalary: number;
+  totalDeductions: number;
+  totalNetPay: number;
+  paymentStatusBreakdown?: PaymentStatusBreakdown;
+}
+
+interface Payslip {
+  [key: string]: any;
+}
+
+interface DepartmentPayrollData {
+  summary: Summary;
+  payslips: Payslip[];
+}
+
 export default function DepartmentPayslipsPage() {
   const [departmentId, setDepartmentId] = useState("");
   const [payrollRunId, setPayrollRunId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<DepartmentPayrollData | null>(null);
 
   const fetchPayslips = async () => {
     if (!departmentId || !payrollRunId) {
@@ -50,21 +73,21 @@ export default function DepartmentPayslipsPage() {
 
       const result = await response.json();
       setData(result);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message || "An error occurred while fetching payslips");
     } finally {
       setLoading(false);
     }
   };
 
-  const formatCurrency = (amount) => {
+  const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     }).format(amount);
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
       case "paid":
         return "bg-green-100 text-green-800 border-green-200";
@@ -77,7 +100,7 @@ export default function DepartmentPayslipsPage() {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: string) => {
     switch (status?.toLowerCase()) {
       case "paid":
         return <CheckCircle className="w-4 h-4" />;

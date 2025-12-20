@@ -29,7 +29,21 @@ export default function EditTemplatePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    description: string;
+    templateType: string;
+    ratingScale: {
+      type: string;
+      min: number;
+      max: number;
+      step?: number;
+      labels?: string[];
+    };
+    criteria: Array<{ key: string; title: string; details?: string; weight?: number; maxScore?: number; required?: boolean }>;
+    instructions: string;
+    isActive: boolean;
+  }>({
     name: '',
     description: '',
     templateType: 'ANNUAL',
@@ -38,9 +52,9 @@ export default function EditTemplatePage() {
       min: 1,
       max: 5,
       step: 1,
-      labels: [] as string[],
+      labels: [],
     },
-    criteria: [] as Array<{ key: string; title: string; details?: string; weight?: number; maxScore?: number; required?: boolean }>,
+    criteria: [],
     instructions: '',
     isActive: true,
   });

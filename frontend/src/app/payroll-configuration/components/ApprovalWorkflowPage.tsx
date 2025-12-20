@@ -209,6 +209,9 @@ function ApprovalWorkflowContent() {
         "allowances": [],
         "insurance-brackets": [],
         "company-settings": [],
+        "signing-bonus": [],
+        "tax-rule": [],
+        "termination-benefit": [],
       });
     } finally {
       setIsLoading(false);

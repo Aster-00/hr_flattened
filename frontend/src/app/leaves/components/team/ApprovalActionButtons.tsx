@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useManagerApprove } from '../../hooks/mutations/useManagerApprove';
 import { useManagerReject } from '../../hooks/mutations/useManagerReject';
 import type { ManagerApprovalInput, ManagerRejectionInput } from '../../types';
+import { checkAuth, User } from '@/app/lib/auth';
 
 interface ApprovalActionButtonsProps {
   requestId: string;
@@ -16,12 +17,23 @@ export const ApprovalActionButtons: React.FC<ApprovalActionButtonsProps> = ({
   const [rejectReason, setRejectReason] = useState('');
   const approveRequest = useManagerApprove();
   const rejectRequest = useManagerReject();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    checkAuth().then(setUser);
+  }, []);
 
   const handleApprove = async () => {
     if (!confirm('Are you sure you want to approve this leave request?')) return;
 
+    if (!user?.id) {
+      alert('User session expired. Please log in again.');
+      return;
+    }
+
     try {
       const input: ManagerApprovalInput = {
+        approverId: user.id,
         comments: 'Approved by manager',
       };
       await approveRequest.mutateAsync({ id: requestId, input });
@@ -37,8 +49,14 @@ export const ApprovalActionButtons: React.FC<ApprovalActionButtonsProps> = ({
       return;
     }
 
+    if (!user?.id) {
+      alert('User session expired. Please log in again.');
+      return;
+    }
+
     try {
       const input: ManagerRejectionInput = {
+        approverId: user.id,
         reason: rejectReason,
       };
       await rejectRequest.mutateAsync({ id: requestId, input });
