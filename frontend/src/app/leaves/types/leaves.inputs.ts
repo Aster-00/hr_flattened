@@ -34,6 +34,7 @@ export interface UpdateLeaveRequestInput {
  * Manager Approval Input
  */
 export interface ManagerApprovalInput {
+  approverId: string;
   comments?: string;
 }
 

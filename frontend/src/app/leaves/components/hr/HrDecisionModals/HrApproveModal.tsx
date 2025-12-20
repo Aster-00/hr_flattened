@@ -44,7 +44,7 @@ export function HrApproveModal({
         id: requestId,
         input: {
           approverId: user.id,
-          comment: comment || undefined,
+          comments: comment || undefined,
         },
       },
       {
