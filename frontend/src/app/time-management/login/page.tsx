@@ -8,7 +8,7 @@ export default function LoginPage() {
   const [workEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  if (auth.loading) return <p>Checking session…</p>;
+  if (!auth || auth.loading) return <p>Checking session…</p>;
 
   if (auth.authenticated) {
     return <p>Logged in as {auth.user.workEmail}</p>;
