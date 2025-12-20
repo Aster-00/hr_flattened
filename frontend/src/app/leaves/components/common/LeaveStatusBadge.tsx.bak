@@ -1,0 +1,47 @@
+﻿'use client';
+
+import { LeaveStatus } from '../../types/leaves.enums';
+import { formatStatus } from '../../utils/format';
+import '../../leaves-theme.css';
+
+interface LeaveStatusBadgeProps {
+  status: LeaveStatus;
+  size?: 'small' | 'medium' | 'large';
+  className?: string;
+}
+
+/**
+ * Enhanced Leave Status Badge Component
+ * Displays a leave request status with beautiful animated styling
+ */
+export default function LeaveStatusBadge({
+  status,
+  size = 'medium',
+  className = '',
+}: LeaveStatusBadgeProps) {
+  const sizeClasses = {
+    small: 'text-xs px-2.5 py-1',
+    medium: 'text-sm px-4 py-1.5',
+    large: 'text-base px-5 py-2',
+  };
+
+  const statusConfig: Record<LeaveStatus, { class: string; icon: string }> = {
+    [LeaveStatus.PENDING]: { class: 'status-badge pending', icon: '' },
+    [LeaveStatus.APPROVED]: { class: 'status-badge approved', icon: '' },
+    [LeaveStatus.REJECTED]: { class: 'status-badge rejected', icon: '' },
+    [LeaveStatus.CANCELLED]: { class: 'status-badge cancelled', icon: '' },
+    [LeaveStatus.RETURNED]: { class: 'status-badge pending', icon: '' },
+    [LeaveStatus.FINALIZED]: { class: 'status-badge approved', icon: '' },
+  };
+
+  const config = statusConfig[status];
+
+  return (
+    <span
+      className={`${config.class} ${sizeClasses[size]} ${className}`}
+    >
+      <span className="mr-1.5">{config.icon}</span>
+      {formatStatus(status)}
+    </span>
+  );
+}

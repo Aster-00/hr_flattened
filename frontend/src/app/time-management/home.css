@@ -1,0 +1,150 @@
+/* ===============================
+   DASHBOARD CARDS – CENTERED
+   =============================== */
+
+.tm-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+/* Card */
+.tm-card {
+    background: var(--bg-primary);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    min-height: 240px;
+
+    text-decoration: none;
+    color: inherit;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+}
+
+.tm-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- TITLE (ICON + TEXT INLINE & CENTERED) ---------- */
+.tm-card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--time-management);
+}
+
+/* Emoji */
+.tm-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    opacity: 0.85;
+}
+
+/* Description */
+.tm-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 220px;
+}
+
+/* ===============================
+   CALM COLOR ACCENTS
+   =============================== */
+
+.tm-card[href*="holidays"] {
+    background-color: rgba(6, 182, 212, 0.30);
+}
+
+.tm-card[href*="exceptions"] {
+    background-color: rgba(245, 158, 11, 0.30);
+}
+
+.tm-card[href*="corrections"] {
+    background-color: rgba(16, 185, 129, 0.30);
+}
+
+.tm-card[href*="notifications"] {
+    background-color: rgba(99, 102, 241, 0.30);
+}
+
+.tm-card[href*="reports"] {
+    background-color: rgba(218, 112, 214, 0.30);
+}
+/* ===============================
+   SHIFT / SCHEDULING MODULE CARDS
+   =============================== */
+
+/* Shifts */
+.tm-card[href*="shifts"] {
+    background-color: rgba(59, 130, 246, 0.30); /* Blue */
+}
+
+/* Shift Types */
+.tm-card[href*="shift-types"] {
+    background-color: rgba(168, 85, 247, 0.30); /* Purple */
+}
+
+/* Schedule Rules */
+.tm-card[href*="schedule-rules"] {
+    background-color: rgba(20, 184, 166, 0.30); /* Teal */
+}
+
+/* Assignments */
+.tm-card[href*="assignments"] {
+    background-color: rgba(234, 88, 12, 0.30); /* Orange */
+}
+
+/* Expiry Monitor */
+.tm-card[href*="expiry-monitor"] {
+    background-color: rgba(239, 68, 68, 0.30); /* Soft Red */
+}
+/* ===============================
+   SHIFT / SCHEDULING MODULE CARDS
+   =============================== */
+
+/* Shifts */
+.tm-card[href*="shifts"] {
+    background-color: rgba(59, 130, 246, 0.30); /* Blue */
+}
+
+/* Shift Types */
+.tm-card[href*="shift-types"] {
+    background-color: rgba(168, 85, 247, 0.30); /* Purple */
+}
+
+/* Schedule Rules */
+.tm-card[href*="schedule-rules"] {
+    background-color: rgba(20, 184, 166, 0.30); /* Teal */
+}
+
+/* Assignments */
+.tm-card[href*="assignments"] {
+    background-color: rgba(234, 88, 12, 0.30); /* Orange */
+}
+
+/* Expiry Monitor */
+.tm-card[href*="expiry-monitor"] {
+    background-color: rgba(239, 68, 68, 0.30); /* Soft Red */
+}
+

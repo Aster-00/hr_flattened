@@ -1,0 +1,289 @@
+import React, { useState } from 'react';
+import { useFlagIrregular } from '../../hooks/mutations/useFlagIrregular';
+import type { FlagIrregularInput } from '../../types';
+import { showToast } from '@/app/lib/toast';
+
+interface FlagIrregularModalProps {
+  isOpen: boolean;
+  requestId: string;
+  employeeName: string;
+  onClose: () => void;
+  onSuccess?: () => void;
+}
+
+export const FlagIrregularModal: React.FC<FlagIrregularModalProps> = ({
+  isOpen,
+  requestId,
+  employeeName,
+  onClose,
+  onSuccess,
+}) => {
+  const [pattern, setPattern] = useState('');
+  const [action, setAction] = useState('');
+  const flagIrregular = useFlagIrregular();
+
+  const handleSubmit = async () => {
+    if (!pattern.trim() || !action.trim()) {
+      showToast('Please fill in all fields', 'warning');
+      return;
+    }
+
+    try {
+      const input: FlagIrregularInput = {
+        requestId: requestId,
+      };
+      // TODO: Uncomment when Sara implements mutation
+      // await flagIrregular.mutateAsync({ id: requestId, input });
+      await flagIrregular.mutateAsync({ requestId });
+      setPattern('');
+      setAction('');
+      onSuccess?.();
+      onClose();
+    } catch (error) {
+      console.error('Failed to flag irregular pattern:', error);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <>
+      <div 
+        style={{
+          position: 'fixed',
+          inset: '0',
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(4px)',
+          zIndex: 40,
+          animation: 'fadeIn 0.2s ease'
+        }} 
+        onClick={onClose} 
+      />
+      
+      <div style={{
+        position: 'fixed',
+        inset: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 50,
+        padding: '16px'
+      }}>
+        <div style={{
+          background: 'white',
+          borderRadius: '16px',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          maxWidth: '560px',
+          width: '100%',
+          overflow: 'hidden',
+          animation: 'slideIn 0.3s ease'
+        }}>
+          {/* Header with gradient */}
+          <div style={{
+            background: 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)',
+            padding: '24px',
+            position: 'relative'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                borderRadius: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg style={{ width: '24px', height: '24px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                </svg>
+              </div>
+              <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'white', margin: 0 }}>
+                Flag Irregular Pattern
+              </h3>
+            </div>
+            <button 
+              onClick={onClose} 
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                border: 'none',
+                borderRadius: '8px',
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                color: 'white',
+                fontSize: '20px',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
+            >
+              ×
+            </button>
+          </div>
+
+          <div style={{ padding: '24px' }}>
+            {/* Employee info with warning */}
+            <div style={{
+              background: 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)',
+              border: '1px solid #FECACA',
+              borderRadius: '12px',
+              padding: '16px',
+              marginBottom: '24px'
+            }}>
+              <p style={{ fontSize: '14px', color: '#6B7280', margin: '0 0 8px 0' }}>
+                Employee: <span style={{ fontWeight: '600', color: '#111827' }}>{employeeName}</span>
+              </p>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <svg style={{ width: '20px', height: '20px', color: '#EF4444', flexShrink: 0, marginTop: '2px' }} fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                <p style={{ fontSize: '13px', color: '#DC2626', margin: 0, lineHeight: '1.5' }}>
+                  Flagging this request will notify HR admin and create an audit entry.
+                </p>
+              </div>
+            </div>
+
+            {/* Form fields */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                Pattern Description <span style={{ color: '#EF4444' }}>*</span>
+              </label>
+              <textarea
+                value={pattern}
+                onChange={(e) => setPattern(e.target.value)}
+                rows={3}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '2px solid #E5E7EB',
+                  borderRadius: '10px',
+                  fontSize: '14px',
+                  fontFamily: 'inherit',
+                  outline: 'none',
+                  transition: 'all 0.2s',
+                  resize: 'vertical'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#EF4444'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
+                placeholder="Describe the irregular pattern (e.g., Frequent Friday requests, Leaves after paydays, Pattern of short-notice sick leaves...)"
+              />
+            </div>
+
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                Suggested Action <span style={{ color: '#EF4444' }}>*</span>
+              </label>
+              <textarea
+                value={action}
+                onChange={(e) => setAction(e.target.value)}
+                rows={3}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '2px solid #E5E7EB',
+                  borderRadius: '10px',
+                  fontSize: '14px',
+                  fontFamily: 'inherit',
+                  outline: 'none',
+                  transition: 'all 0.2s',
+                  resize: 'vertical'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#EF4444'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
+                placeholder="Recommend next steps (e.g., Manager discussion, Policy review, Documentation requirements...)"
+              />
+            </div>
+
+            {/* Action buttons */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+              <button
+                onClick={onClose}
+                disabled={flagIrregular.isPending}
+                style={{
+                  padding: '10px 20px',
+                  border: '2px solid #E5E7EB',
+                  borderRadius: '10px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#6B7280',
+                  background: 'white',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  opacity: flagIrregular.isPending ? 0.5 : 1
+                }}
+                onMouseEnter={(e) => !flagIrregular.isPending && (e.currentTarget.style.background = '#F9FAFB')}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={flagIrregular.isPending || !pattern.trim() || !action.trim()}
+                style={{
+                  padding: '10px 24px',
+                  border: 'none',
+                  borderRadius: '10px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: (flagIrregular.isPending || !pattern.trim() || !action.trim()) 
+                    ? '#D1D5DB' 
+                    : 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)',
+                  cursor: (flagIrregular.isPending || !pattern.trim() || !action.trim()) ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: (flagIrregular.isPending || !pattern.trim() || !action.trim()) 
+                    ? 'none' 
+                    : '0 4px 12px rgba(239, 68, 68, 0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+                onMouseEnter={(e) => {
+                  if (!flagIrregular.isPending && pattern.trim() && action.trim()) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(239, 68, 68, 0.4)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = (flagIrregular.isPending || !pattern.trim() || !action.trim()) 
+                    ? 'none' 
+                    : '0 4px 12px rgba(239, 68, 68, 0.3)';
+                }}
+              >
+                {flagIrregular.isPending ? (
+                  <>
+                    <svg style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} fill="none" viewBox="0 0 24 24">
+                      <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Flagging...
+                  </>
+                ) : 'Flag Pattern'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

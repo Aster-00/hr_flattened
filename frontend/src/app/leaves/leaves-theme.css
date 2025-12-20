@@ -1,0 +1,487 @@
+/* ==========================================
+   LEAVES MODULE - MODERN MINIMALIST THEME
+   Clean, Professional & Performance-Optimized
+   ========================================== */
+
+:root {
+  /* Primary Color Palette */
+  --leaves-50: #ecfdf5;
+  --leaves-100: #d1fae5;
+  --leaves-200: #a7f3d0;
+  --leaves-300: #6ee7b7;
+  --leaves-400: #34d399;
+  --leaves-500: #10b981;
+  --leaves-600: #059669;
+  --leaves-700: #047857;
+  --leaves-800: #065f46;
+  --leaves-900: #064e3b;
+  
+  /* Alias for --leaves (used in some components) */
+  --leaves: #059669;
+  
+  /* Primary colors for other modules */
+  --primary-600: #2563eb;
+  --primary-800: #1e40af;
+  
+  /* Neutral Palette */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  
+  /* Border Colors */
+  --border-light: #e5e7eb;
+  
+  /* Text Colors */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  
+  /* Status Colors */
+  --status-pending: #f59e0b;
+  --status-pending-bg: #fef3c7;
+  --status-pending-text: #92400e;
+  --status-approved: #10b981;
+  --status-approved-bg: #d1fae5;
+  --status-approved-text: #065f46;
+  --status-rejected: #ef4444;
+  --status-rejected-bg: #fee2e2;
+  --status-rejected-text: #991b1b;
+  --status-cancelled: #6b7280;
+  --status-cancelled-bg: #f3f4f6;
+  
+  /* Additional Status Colors */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --success-dark: #065f46;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --warning-dark: #92400e;
+  --error: #ef4444;
+  --error-light: #fee2e2;
+  --error-dark: #991b1b;
+  --info: #3b82f6;
+  --info-light: #dbeafe;
+  --info-dark: #1e40af;
+  
+  /* Secondary Colors */
+  --secondary-500: #8b5cf6;
+  
+  /* Skeleton/Loading */
+  --skeleton-bg: #e5e7eb;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  
+  /* Transitions */
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   BASE COMPONENTS
+   ========================================== */
+
+.leaves-container {
+  min-height: 100vh;
+  background: var(--gray-50);
+}
+
+.leaves-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================
+   CARDS
+   ========================================== */
+
+.leaves-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--gray-200);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.leaves-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--gray-300);
+}
+
+.leaves-card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.leaves-card-body {
+  padding: 1.5rem;
+}
+
+.leaves-card-footer {
+  padding: 1rem 1.5rem;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+/* ==========================================
+   STATS CARDS
+   ========================================== */
+
+.leaves-stat-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--gray-200);
+  transition: var(--transition-slow);
+  position: relative;
+  overflow: hidden;
+}
+
+.leaves-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--leaves-500), var(--leaves-400));
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.leaves-stat-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--leaves-200);
+}
+
+.leaves-stat-card:hover::before {
+  opacity: 1;
+}
+
+.leaves-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-500);
+  margin-bottom: 0.5rem;
+}
+
+.leaves-stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.leaves-stat-sublabel {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.leaves-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.leaves-btn-primary {
+  background: var(--leaves-600);
+  color: white;
+}
+
+.leaves-btn-primary:hover:not(:disabled) {
+  background: var(--leaves-700);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.leaves-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.leaves-btn-secondary {
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+}
+
+.leaves-btn-secondary:hover:not(:disabled) {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.leaves-btn-ghost {
+  background: transparent;
+  color: var(--gray-600);
+  border: 1px solid transparent;
+}
+
+.leaves-btn-ghost:hover:not(:disabled) {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+.leaves-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.leaves-btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+}
+
+.leaves-btn-lg {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+}
+
+/* ==========================================
+   BADGES
+   ========================================== */
+
+.leaves-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.leaves-badge-pending {
+  background: var(--status-pending-bg);
+  color: #92400e;
+}
+
+.leaves-badge-approved {
+  background: var(--status-approved-bg);
+  color: #065f46;
+}
+
+.leaves-badge-rejected {
+  background: var(--status-rejected-bg);
+  color: #991b1b;
+}
+
+.leaves-badge-cancelled {
+  background: var(--status-cancelled-bg);
+  color: var(--gray-700);
+}
+
+/* ==========================================
+   TABLE
+   ========================================== */
+
+.leaves-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.leaves-table thead {
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.leaves-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-600);
+}
+
+.leaves-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-900);
+  font-size: 0.875rem;
+}
+
+.leaves-table tbody tr {
+  transition: var(--transition);
+}
+
+.leaves-table tbody tr:hover {
+  background: var(--gray-50);
+}
+
+.leaves-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================
+   PROGRESS BAR
+   ========================================== */
+
+.leaves-progress {
+  width: 100%;
+  height: 0.5rem;
+  background: var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.leaves-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--leaves-600), var(--leaves-500));
+  border-radius: var(--radius);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   LOADING STATES
+   ========================================== */
+
+.leaves-skeleton {
+  background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-300) 50%, var(--gray-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
+
+.leaves-spinner {
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--leaves-600);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+.leaves-animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.leaves-animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.leaves-animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.leaves-text-gradient {
+  background: linear-gradient(135deg, var(--leaves-600), var(--leaves-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .leaves-content {
+    padding: 0 1rem;
+  }
+  
+  .leaves-stat-value {
+    font-size: 2rem;
+  }
+  
+  .leaves-table {
+    font-size: 0.8125rem;
+  }
+  
+  .leaves-table th,
+  .leaves-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
