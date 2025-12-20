@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   CheckCircle,
@@ -78,7 +78,7 @@ const getId = (value: any): string => {
   return "N/A";
 };
 
-const RefundsPage: React.FC = () => {
+const RefundsPageContent: React.FC = () => {
   const [refunds, setRefunds] = useState<Refund[]>([]);
   const [approvedRecords, setApprovedRecords] = useState<{
     disputes: any[];
@@ -944,6 +944,23 @@ const RefundsPage: React.FC = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const RefundsPage: React.FC = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading refunds...</p>
+          </div>
+        </div>
+      }
+    >
+      <RefundsPageContent />
+    </Suspense>
   );
 };
 
