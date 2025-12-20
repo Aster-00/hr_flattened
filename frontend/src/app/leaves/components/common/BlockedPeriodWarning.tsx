@@ -4,7 +4,7 @@ import { formatDate } from '../../utils/dates';
 interface BlockedPeriod {
   from: string;
   to: string;
-  reason: string;
+  reason?: string;
 }
 
 interface BlockedPeriodWarningProps {
