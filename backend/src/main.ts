@@ -26,10 +26,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: [
-      'https://hr-flattened-bbsq-357ylqp6v-aster-00s-projects.vercel.app',
-      'https://hr-flattened-bbsq.vercel.app',
-    ],
+    origin: '*',
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: '*',
