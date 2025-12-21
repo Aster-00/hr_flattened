@@ -32,7 +32,17 @@ async function bootstrap() {
     ],
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: '*',
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'Accept',
+      'Origin',
+      'Access-Control-Allow-Credentials',
+      'Access-Control-Allow-Headers',
+      'Access-Control-Allow-Methods',
+      'Access-Control-Allow-Origin',
+    ],
   });
   const port = process.env.PORT ?? 5000;
   await app.listen(port);
