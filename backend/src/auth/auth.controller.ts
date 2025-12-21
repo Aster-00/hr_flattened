@@ -29,7 +29,7 @@ export class AuthController {
     // Set JWT cookie
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       secure: false,
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -43,7 +43,7 @@ export class AuthController {
 
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       secure: false,
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -65,8 +65,8 @@ export class AuthController {
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false, // true in production (HTTPS)
+      sameSite: 'none',
+      secure: true, // true in production (HTTPS)
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     });
 
