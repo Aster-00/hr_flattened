@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { DollarSign, Calendar, TrendingUp } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Payslip {
   _id?: string;
   payslipId?: string;
@@ -40,7 +42,7 @@ const SalaryHistoryPage: React.FC = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/my-payslip",
+        `${API_URL}/payroll-tracking/my-payslip`,
         {
           method: "GET",
           headers: {

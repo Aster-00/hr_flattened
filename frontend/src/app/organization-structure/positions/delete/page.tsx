@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 type Position = {
   _id: string;
   code: string;
@@ -27,7 +29,7 @@ export default function DeletePositionPage() {
           return;
         }
 
-        const res = await fetch("http://localhost:5000/organization-structure/positions", {
+        const res = await fetch(`${API_URL}/organization-structure/positions`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -105,7 +107,7 @@ export default function DeletePositionPage() {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/organization-structure/positions/${selectedId}`, {
+      const response = await fetch(`${API_URL}/organization-structure/positions/${selectedId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

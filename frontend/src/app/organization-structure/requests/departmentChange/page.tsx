@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 type Employee = {
   _id: string;
   firstName: string;
@@ -38,7 +41,7 @@ export default function CreateDepartmentChangeRequestPage() {
           return;
         }
 
-        const res = await fetch("http://localhost:5000/employee-profile", {
+        const res = await fetch(`${API_URL}/employee-profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -104,12 +107,12 @@ export default function CreateDepartmentChangeRequestPage() {
         }
 
         const [deptRes, posRes] = await Promise.all([
-          fetch("http://localhost:5000/organization-structure/departments", {
+          fetch(`${API_URL}/organization-structure/departments`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
           }),
-          fetch("http://localhost:5000/organization-structure/positions", {
+          fetch(`${API_URL}/organization-structure/positions`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
@@ -162,7 +165,7 @@ export default function CreateDepartmentChangeRequestPage() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/organization-structure/change-request/department",
+        `${API_URL}/organization-structure/change-request/department`,
         {
           method: "POST",
           headers: {

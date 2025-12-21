@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function PayrollRunsByMonthPage() {
   const params = useParams();
   const month = params?.month as string | undefined;
@@ -25,7 +27,7 @@ export default function PayrollRunsByMonthPage() {
       try {
         const encodedYear = encodeURIComponent(year);
         const res = await fetch(
-          `http://localhost:5000/payroll-tracking/payroll-runs/year/${encodedYear}`,
+          `${API_URL}/payroll-tracking/payroll-runs/year/${encodedYear}`,
           { credentials: "include" }
         );
 

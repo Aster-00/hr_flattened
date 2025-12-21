@@ -10,6 +10,8 @@ import {
   FileText,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Dispute {
   disputeId: string;
   description: string;
@@ -48,7 +50,7 @@ const DisputesPage: React.FC = () => {
 
   const fetchDisputes = async () => {
     try {
-      const meRes = await fetch("http://localhost:5000/auth/me", {
+      const meRes = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // send HTTP-only cookie
@@ -63,7 +65,7 @@ const DisputesPage: React.FC = () => {
 
       // Fetch disputes - backend expects cookie-based auth, not Authorization header
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/my-disputes",
+        `${API_URL}/payroll-tracking/my-disputes`,
         {
           method: "GET",
           headers: {
@@ -114,7 +116,7 @@ const DisputesPage: React.FC = () => {
   const fetchPayslips = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/my-payslip",
+        `${API_URL}/payroll-tracking/my-payslip`,
         {
           method: "GET",
           headers: {
@@ -166,7 +168,7 @@ const DisputesPage: React.FC = () => {
     try {
       setSubmitLoading(true);
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/disputes",
+        `${API_URL}/payroll-tracking/disputes`,
         {
           method: "POST",
           headers: {

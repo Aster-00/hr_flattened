@@ -24,7 +24,8 @@ interface BaseSalaryAPIResponse {
 }
 
 // --- API FETCH FUNCTION ---
-const API_BASE_URL = "http://localhost:5000/payroll-tracking/base-salary";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE_URL = `${API_URL}/payroll-tracking/base-salary`;
 
 const fetchBaseSalaryData = async (): Promise<BaseSalaryAPIResponse> => {
   try {

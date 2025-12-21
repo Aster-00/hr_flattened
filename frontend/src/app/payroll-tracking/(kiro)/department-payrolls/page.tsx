@@ -12,6 +12,8 @@ import {
   XCircle,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface PaymentStatusBreakdown {
   paid?: number;
   pending?: number;
@@ -53,7 +55,7 @@ export default function DepartmentPayslipsPage() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/payslips/bydepartment",
+        `${API_URL}/payroll-tracking/payslips/bydepartment`,
         {
           method: "POST",
           headers: {

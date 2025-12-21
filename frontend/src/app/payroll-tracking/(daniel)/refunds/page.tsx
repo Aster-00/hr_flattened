@@ -12,6 +12,8 @@ import {
   Plus,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Refund {
   _id: string;
   type: "dispute" | "claim";
@@ -108,7 +110,7 @@ const RefundsPageContent: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const me = await fetch("http://localhost:5000/auth/me", {
+        const me = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
         if (!me.ok) {
@@ -152,7 +154,7 @@ const RefundsPageContent: React.FC = () => {
   const fetchApprovedRecords = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/payroll-tracking/finance/approved-records",
+        `${API_URL}/payroll-tracking/finance/approved-records`,
         { credentials: "include" }
       );
 
@@ -173,7 +175,7 @@ const RefundsPageContent: React.FC = () => {
       setLoading(true);
       setError(null);
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/refunds",
+        `${API_URL}/payroll-tracking/refunds`,
         { credentials: "include" }
       );
 
@@ -207,7 +209,7 @@ const RefundsPageContent: React.FC = () => {
     try {
       setProcessingId("create");
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/refund/create",
+        `${API_URL}/payroll-tracking/refund/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -250,7 +252,7 @@ const RefundsPageContent: React.FC = () => {
     try {
       setProcessingId(selectedRefund._id);
       const response = await fetch(
-        `http://localhost:5000/payroll-tracking/refund/${selectedRefund._id}/mark-paid`,
+        `${API_URL}/payroll-tracking/refund/${selectedRefund._id}/mark-paid`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

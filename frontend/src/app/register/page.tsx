@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import '../login/login.css';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
@@ -62,7 +64,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/auth/register/candidate', {
+      const response = await fetch(`${API_URL}/auth/register/candidate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

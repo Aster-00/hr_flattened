@@ -14,6 +14,8 @@ import {
   Search,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface MisconductDeduction {
   type: "Absenteeism" | "Lateness";
   date: string;
@@ -56,7 +58,7 @@ function MisconductContent() {
 
       try {
         // Updated URL to match your @Get('misconduct-deductions')
-        const url = `http://localhost:5000/payroll-tracking/misconduct-deductions?startDate=${startISO}&endDate=${endISO}`;
+        const url = `${API_URL}/payroll-tracking/misconduct-deductions?startDate=${startISO}&endDate=${endISO}`;
         console.log("Fetching from:", url);
 
         const res = await fetch(url, { credentials: "include" });
@@ -84,7 +86,7 @@ function MisconductContent() {
     const init = async () => {
       try {
         const payslipRes = await fetch(
-          `http://localhost:5000/payroll-tracking/my-payslip`,
+          `${API_URL}/payroll-tracking/my-payslip`,
           { credentials: "include" }
         );
         const payslipData = await payslipRes.json();

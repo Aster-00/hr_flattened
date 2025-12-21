@@ -4,6 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import './login.css';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 type UserType = 'employee' | 'candidate';
 
 function LoginForm() {
@@ -31,7 +33,7 @@ function LoginForm() {
 
     try {
       // Replace URL with your actual backend endpoint
-      const response = await fetch('http://localhost:5000/auth/login', {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ function LoginForm() {
   // Handle Google OAuth
   const handleGoogleLogin = () => {
     // Redirect user to the backend Google Auth route
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = `${API_URL}/api/auth/google`;
   };
   
   return (

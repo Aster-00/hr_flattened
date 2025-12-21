@@ -10,6 +10,8 @@ import {
   FileText,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Claim {
   _id: string;
   claimId: string;
@@ -69,7 +71,7 @@ const ClaimsManagerPage: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const me = await fetch("http://localhost:5000/auth/me", {
+        const me = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
         if (!me.ok) {
@@ -96,7 +98,7 @@ const ClaimsManagerPage: React.FC = () => {
   const fetchClaims = async (userId: string) => {
     try {
       const res = await fetch(
-        "http://localhost:5000/payroll-tracking/claims/for-manager-approval",
+        `${API_URL}/payroll-tracking/claims/for-manager-approval`,
         { credentials: "include" }
       );
       if (!res.ok) throw new Error("Failed to fetch claims");
@@ -115,7 +117,7 @@ const ClaimsManagerPage: React.FC = () => {
   const handleApprove = async (claim: Claim) => {
     try {
       setProcessingId(claim._id);
-      const endpoint = `http://localhost:5000/payroll-tracking/claim/${claim._id}/manager-confirm`;
+      const endpoint = `${API_URL}/payroll-tracking/claim/${claim._id}/manager-confirm`;
 
       const body = {
         comments: approvalComments,
@@ -154,7 +156,7 @@ const ClaimsManagerPage: React.FC = () => {
 
     try {
       setProcessingId(claim._id);
-      const endpoint = `http://localhost:5000/payroll-tracking/claim/${claim._id}/manager-reject`;
+      const endpoint = `${API_URL}/payroll-tracking/claim/${claim._id}/manager-reject`;
 
       const body = {
         rejectionReason: rejectionReason,

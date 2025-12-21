@@ -15,6 +15,8 @@ import {
   Zap,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 // --- 1. INTERFACE DEFINITIONS ---
 interface InsuranceDetail {
   name: string;
@@ -175,7 +177,7 @@ function PayslipInsuranceDetailsContent() {
       try {
         // Using the actual fetch call as requested (no hardcoding/mocking)
         const response = await fetch(
-          "http://localhost:5000/payroll-tracking/insurance-deductions",
+          `${API_URL}/payroll-tracking/insurance-deductions`,
           {
             method: "GET",
             credentials: "include",

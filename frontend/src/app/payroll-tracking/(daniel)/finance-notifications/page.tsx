@@ -10,6 +10,8 @@ import {
   FileText,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 /* =====================
    TYPES
 ===================== */
@@ -65,7 +67,7 @@ const FinanceNotifications: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const me = await fetch("http://localhost:5000/auth/me", {
+        const me = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
         if (!me.ok) {
@@ -97,17 +99,17 @@ const FinanceNotifications: React.FC = () => {
       setLoading(true);
 
       const approvedRes = await fetch(
-        "http://localhost:5000/payroll-tracking/finance/approved-records",
+        `${API_URL}/payroll-tracking/finance/approved-records`,
         { credentials: "include" }
       );
 
       const disputesRes = await fetch(
-        "http://localhost:5000/payroll-tracking/disputes/for-manager-approval",
+        `${API_URL}/payroll-tracking/disputes/for-manager-approval`,
         { credentials: "include" }
       );
 
       const claimsRes = await fetch(
-        "http://localhost:5000/payroll-tracking/claims/for-manager-approval",
+        `${API_URL}/payroll-tracking/claims/for-manager-approval`,
         { credentials: "include" }
       );
 

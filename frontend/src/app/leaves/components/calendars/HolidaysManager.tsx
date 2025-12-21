@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import { showToast } from '@/app/lib/toast';
 import { formatDate } from '../../utils/dates';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 interface Holiday {
   _id: string;
   date?: string;
@@ -29,7 +31,7 @@ export default function HolidaysManager({ calendarId, holidays, onRefetch }: Hol
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`http://localhost:5000/leaves/calendars/${calendarId}/holidays`, {
+      const response = await fetch(`${API_URL}/leaves/calendars/${calendarId}/holidays`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +61,7 @@ export default function HolidaysManager({ calendarId, holidays, onRefetch }: Hol
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/leaves/calendars/${calendarId}/holidays/${holidayId}`, {
+      const response = await fetch(`${API_URL}/leaves/calendars/${calendarId}/holidays/${holidayId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,

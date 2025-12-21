@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function CreateDepartmentPage() {
   const [formData, setFormData] = useState({
     code: '',
@@ -27,7 +29,7 @@ export default function CreateDepartmentPage() {
 
     try {
       const token = localStorage.getItem('token'); // Assuming token is stored
-      const response = await fetch('http://localhost:5000/organization-structure/departments', {
+      const response = await fetch(`${API_URL}/organization-structure/departments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

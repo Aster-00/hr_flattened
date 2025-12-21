@@ -51,7 +51,7 @@ function NewAssignmentContent() {
       
       // Try to load employees from employee-profile endpoint
       try {
-        const employeesData = await api.get<Employee[]>('http://localhost:5000/employee-profile').catch(() => []);
+        const employeesData = await api.get<Employee[]>('/employee-profile').catch(() => []);
         setEmployees(employeesData || []);
       } catch {
         // If employee-profile endpoint doesn't exist or fails, that's okay

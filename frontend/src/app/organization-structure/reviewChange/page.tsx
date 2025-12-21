@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface ChangeRequest {
   _id: string;
   requestNumber: string;
@@ -46,7 +48,7 @@ export default function ReviewChangeRequestPage() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/organization-structure/change-request",
+        `${API_URL}/organization-structure/change-request`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -99,7 +101,7 @@ export default function ReviewChangeRequestPage() {
       }
 
       const response = await fetch(
-        `http://localhost:5000/organization-structure/change-request/${id}/review`,
+        `${API_URL}/organization-structure/change-request/${id}/review`,
         {
           method: "POST",
           headers: {

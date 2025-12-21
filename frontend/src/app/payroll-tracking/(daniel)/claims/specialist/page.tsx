@@ -10,6 +10,8 @@ import {
   FileText,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Claim {
   _id: string;
   claimId: string;
@@ -65,7 +67,7 @@ const ClaimsSpecialistPage: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const me = await fetch("http://localhost:5000/auth/me", {
+        const me = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
 
@@ -88,7 +90,7 @@ const ClaimsSpecialistPage: React.FC = () => {
         }
 
         const res = await fetch(
-          "http://localhost:5000/payroll-tracking/claims/for-specialist-review",
+          `${API_URL}/payroll-tracking/claims/for-specialist-review`,
           { credentials: "include" }
         );
 
@@ -116,7 +118,7 @@ const ClaimsSpecialistPage: React.FC = () => {
       setProcessingId(claim._id);
 
       const response = await fetch(
-        `http://localhost:5000/payroll-tracking/claim/${claim._id}/specialist-approve`,
+        `${API_URL}/payroll-tracking/claim/${claim._id}/specialist-approve`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -137,7 +139,7 @@ const ClaimsSpecialistPage: React.FC = () => {
       resetForm();
 
       const res = await fetch(
-        "http://localhost:5000/payroll-tracking/claims/for-specialist-review",
+        `${API_URL}/payroll-tracking/claims/for-specialist-review`,
         { credentials: "include" }
       );
       const data = await res.json();
@@ -162,7 +164,7 @@ const ClaimsSpecialistPage: React.FC = () => {
       setProcessingId(claim._id);
 
       const response = await fetch(
-        `http://localhost:5000/payroll-tracking/claim/${claim._id}/specialist-reject`,
+        `${API_URL}/payroll-tracking/claim/${claim._id}/specialist-reject`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -181,7 +183,7 @@ const ClaimsSpecialistPage: React.FC = () => {
       resetForm();
 
       const res = await fetch(
-        "http://localhost:5000/payroll-tracking/claims/for-specialist-review",
+        `${API_URL}/payroll-tracking/claims/for-specialist-review`,
         { credentials: "include" }
       );
       const data = await res.json();

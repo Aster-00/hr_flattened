@@ -3,7 +3,7 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export const leavesApiClient = axios.create({
   baseURL: BASE_URL,

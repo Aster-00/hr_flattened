@@ -10,6 +10,8 @@ import {
   FileText,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Claim {
   claimId: string;
   description: string;
@@ -41,7 +43,7 @@ const ClaimsPage: React.FC = () => {
     try {
       setLoading(true);
       // ensure authenticated (cookie-based)
-      const meRes = await fetch("http://localhost:5000/auth/me", {
+      const meRes = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -49,7 +51,7 @@ const ClaimsPage: React.FC = () => {
       if (!meRes.ok) throw new Error("Not authenticated");
 
       const res = await fetch(
-        "http://localhost:5000/payroll-tracking/my-claims",
+        `${API_URL}/payroll-tracking/my-claims`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -106,7 +108,7 @@ const ClaimsPage: React.FC = () => {
     try {
       setSubmitLoading(true);
       const res = await fetch(
-        "http://localhost:5000/payroll-tracking/expense-claims",
+        `${API_URL}/payroll-tracking/expense-claims`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

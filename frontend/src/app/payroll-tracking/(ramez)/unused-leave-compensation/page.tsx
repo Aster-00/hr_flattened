@@ -37,8 +37,9 @@ interface LeaveCompensationResponse {
 }
 
 // --- API FETCH FUNCTION ---
+const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 const API_URL =
-  "http://localhost:5000/payroll-tracking/unused-leave-compensation";
+  `${BASE_API_URL}/payroll-tracking/unused-leave-compensation`;
 
 const fetchLeaveCompensation = async (): Promise<LeaveCompensationResponse> => {
   try {

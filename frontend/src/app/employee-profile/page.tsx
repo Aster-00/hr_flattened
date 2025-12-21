@@ -21,7 +21,7 @@ class APIService {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = 'http://localhost:5000';
+    this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
   }
 
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {

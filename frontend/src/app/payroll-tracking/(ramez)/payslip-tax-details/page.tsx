@@ -11,6 +11,8 @@ import {
   Scale,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 // --- UPDATED INTERFACE DEFINITION ---
 interface TaxDetailItem {
   // The backend now provides these properties
@@ -47,7 +49,7 @@ function PayslipTaxDetailsContent() {
     const fetchDetails = async () => {
       try {
         // --- FIX 1: URL construction changed to use path parameter ---
-        const url = `http://localhost:5000/payroll-tracking/tax-deduction/${payslipId}`;
+        const url = `${API_URL}/payroll-tracking/tax-deduction/${payslipId}`;
         // -----------------------------------------------------------
 
         const response = await fetch(url, { credentials: "include" });

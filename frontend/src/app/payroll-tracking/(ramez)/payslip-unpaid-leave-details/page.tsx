@@ -15,6 +15,8 @@ import {
   CalendarDays,
 } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 // --- INTERFACES MATCHING YOUR UPDATED FUNCTION ---
 interface UnpaidLeaveDetail {
   leaveType: string;
@@ -46,7 +48,7 @@ function UnpaidLeaveContent() {
     setError("");
     try {
       const res = await fetch(
-        `http://localhost:5000/payroll-tracking/unpaid-leave-deductions`,
+        `${API_URL}/payroll-tracking/unpaid-leave-deductions`,
         {
           credentials: "include",
         }

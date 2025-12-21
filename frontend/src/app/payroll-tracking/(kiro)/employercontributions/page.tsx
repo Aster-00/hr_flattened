@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Shield, DollarSign, Gift, TrendingUp, Briefcase } from "lucide-react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 interface Insurance {
   name: string;
   amount: number;
@@ -34,7 +36,7 @@ const EmployerContributionsPage: React.FC = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:5000/payroll-tracking/employer-contributions",
+        `${API_URL}/payroll-tracking/employer-contributions`,
         {
           method: "GET",
           headers: {

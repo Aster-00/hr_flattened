@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 // --- 1. INTERFACE DEFINITION ---
 interface PayslipSummary {
   payrollRunId: string;
@@ -135,7 +137,7 @@ export default function PayslipHistoryPage() {
 
   useEffect(() => {
     // Fetching from the assumed correct history endpoint
-    fetch("http://localhost:5000/payroll-tracking/my-payslip-status", {
+    fetch(`${API_URL}/payroll-tracking/my-payslip-status`, {
       credentials: "include",
     })
       .then((res) => {
