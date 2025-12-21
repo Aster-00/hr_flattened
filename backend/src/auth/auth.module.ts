@@ -43,14 +43,18 @@ import { RolesGuard } from './guards/roles.guard';
     ]),
 
     // Load JWT secret dynamically
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: (config: ConfigService) => ({
-        secret: config.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
+      JwtModule.registerAsync({
+        imports: [ConfigModule],
+        useFactory: (config: ConfigService) => {
+          const secret = config.get<string>('JWT_SECRET');
+          console.log('JWT_SECRET length:', secret ? secret.length : 'undefined');
+          return {
+            secret,
+            signOptions: { expiresIn: '1d' },
+          };
+        },
+        inject: [ConfigService],
       }),
-      inject: [ConfigService],
-    }),
   ],
 
   controllers: [AuthController],
