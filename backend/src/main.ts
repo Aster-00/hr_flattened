@@ -22,13 +22,15 @@ async function bootstrap() {
     }),
   );
 
+
   app.use(cookieParser());
+
   app.enableCors({
-    origin: '*',
+    origin: 'https://hr-flattened-bbsq-357ylqp6v-aster-00s-projects.vercel.app',
+    credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: '*',
   });
-
   const port = process.env.PORT ?? 5000;
   await app.listen(port);
   console.log(`🚀 Application is running on: http://localhost:${port}`);
